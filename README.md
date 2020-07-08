@@ -1,2 +1,1 @@
-# quizApp_KamM_LelandB
-Quiz App Assignment
+### Boilerplate app structure for Quiz App project
