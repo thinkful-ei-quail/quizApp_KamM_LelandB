@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * Example store structure
@@ -7,25 +7,58 @@ const store = {
   // 5 or more questions are required
   questions: [
     {
-      question: 'What color is broccoli?',
+      question: 'In Star Wars Episode IV: A New Hope, which family members did Luke Skywalker live with on Tatooine?',
       answers: [
-        'red',
-        'orange',
-        'pink',
-        'green'
+        'Grandparents',
+        'Parents',
+        'Aunt and Uncle',
+        'Foster Parents'
       ],
-      correctAnswer: 'green'
+      correctAnswer: 'Aunt and Uncle'
+    },
+    
+    {
+      question: 'In the Harry Potter movies, what was the name of Harry\'s owl?',
+      answers: [
+        'Hedwig',
+        'Hagrid',
+        'Dobby',
+        'Hermione'
+      ],
+      correctAnswer: 'Hedwig'
+    },
+    
+    {
+      question: 'In Quentin Tarantino\'s Kill Bill after Uma Thurman\'s character wakes up from her coma, what was the body part she focused on moving to break her paralysis?',
+      answers: [
+        'Big Toe',
+        'Pinky Toe',
+        'Middle Toe',
+        'Elbow'
+      ],
+      correctAnswer: 'Big Toe'
+    },
+    
+    {
+      question: 'In The Lord of the Rings: Return of the King, what was the name of the reforged sword Aragorn receives from Elrond?',
+      answers: [
+        'Sting',
+        'Excalibur',
+        'Icing Death',
+        'Narsil'
+      ],
+      correctAnswer: 'Narsil'
     },
     {
-      question: 'What is the current year?',
+      question: 'In Stanley Kubrik\'s A Clockwork Orange what was the main beverage being served in the bar scene?',
       answers: [
-        '1970',
-        '2015',
-        '2019',
-        '2005'
+        'Whiskey',
+        'Ale',
+        'Orange Juice',
+        'Milk'
       ],
-      correctAnswer: '2019'
-    }
+      correctAnswer: 'Milk'
+    },
   ],
   quizStarted: false,
   questionNumber: 0,
