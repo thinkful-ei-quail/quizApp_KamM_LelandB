@@ -65,6 +65,33 @@ const store = {
   score: 0
 };
 
+
+
+
+function startPage(){
+  $(window).on("load", event=>{
+    $('main').html(`<div class="border" id="main-box">
+    <h2>Welcome!</h2>
+    <h3>Would you like to start the Movie Trivia Quiz?</h3>
+    <hr>
+    <button type="button" class="item" id="start-button">YES</button>
+    </div>`);
+  })
+}
+
+
+$(startPage);
+
+
+
+
+
+
+
+
+
+
+
 /**
  * 
  * Technical requirements:
