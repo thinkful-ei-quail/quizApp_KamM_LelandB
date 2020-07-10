@@ -71,9 +71,17 @@ function startPage() {
     <h2>Welcome!</h2>
     <h3>Would you like to start the Movie Trivia Quiz?</h3>
     <hr>
-    <button type="button" class="item" id="submit-button">YES</button>
+    <button type="button" class="item" id="start-button">YES</button>
     </div>`);
   });
+}
+
+function startQuestions(){
+  $('main').on('click', '#start-button', event=>{
+    let html = renderHtml();
+    $('main').html(html);
+    store.quizStarted = true;
+  })
 }
 
  
@@ -85,10 +93,8 @@ function nextQuestion() {
     if(store.quizStarted){
       let userAnswer = answerCheck(getUserAnswer());
       store.questionNumber += 1;
-       }
-    let html = renderHtml();
-    $('main').html(html);
-    store.quizStarted = true;
+    }
+    
   });
 }
 
@@ -112,24 +118,52 @@ function renderHtml() {
       <br>
       <button type="submit" id="submit-button">Submit</button>
   </form>
+  <p>Score: ${store.score} of 5</p>
 </div>`;
 }
 
 
-// LEFT OFF  //
 function answerCheck(userAnswer){
   
   if (userAnswer===store.questions[store.questionNumber].correctAnswer){
     $('main').html(`<div class="border" id="main-box">
     <h2>Correct!</h2><hr>
-    <button type="button" class="item" id="start-button">Continue</button>
+    <button type="button" class="item" id="continue-button">Continue</button>
     </div>`  
     );
+    scoreIncrease();
     console.log('Correct!');
   } else{
-    console.log("Incorrect!");//DISPLAY INCORRECT, RIGHT ANSWER IS store.questions[store.questionNumber].correctAnswer
+    $('main').html(`<div class="border" id="main-box">
+    <h2>Incorrect! Correct answer is ${store.questions[store.questionNumber].correctAnswer}</h2><hr>
+    <button type="button" class="item" id="continue-button">Continue</button>
+    </div>`  
+    );
+    console.log("Incorrect!");
   } 
 }
+
+function continueButton(){
+  $('main').on('click', '#continue-button', event=>{
+    console.log('clicked');
+    if (store.questionNumber<store.questions.length){
+      let html = renderHtml();
+      $('main').html(html);
+    }else{
+      endPage();
+    }
+  });
+}
+
+function restartButton(){
+  $('main').on('click', '#restart-button', event=>{
+    store.score=0;
+    store.questionNumber=0;
+    let html = renderHtml();
+    $('main').html(html);
+  })
+}
+
 
 function getUserAnswer(){
   let userAnswer = $("input[name='trivia']:checked").val();
@@ -143,6 +177,18 @@ function scoreIncrease(){
 }
 
 
+function endPage(){
+  $('main').html(`<div class="border" id="main-box">
+  <h2>Congratulations! Your score is ${store.score} out of 5.</h2>
+  <h3>Would you like to play again, even though you'll be answering the same exact questions?</h3>
+  <hr>
+  <button type="button" class="item" id="restart-button">YES</button>
+  </div>`);
+}
+
+
+
+
 
 
 
@@ -151,8 +197,10 @@ function scoreIncrease(){
 
 function quiz() {
   startPage();
- nextQuestion();
- 
+  startQuestions();
+  continueButton();
+  nextQuestion();
+  restartButton();
 }
 
 
