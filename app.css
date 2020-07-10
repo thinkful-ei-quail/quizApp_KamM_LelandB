@@ -45,7 +45,7 @@ div#main-box {
   box-shadow: 4px 3px 3px rgb(155, 155, 155);
 }
 
-#start-button, #quit-button {
+#submit-button, #quit-button {
   font-size: 20px;
   width: 100%;
   margin: 10px;

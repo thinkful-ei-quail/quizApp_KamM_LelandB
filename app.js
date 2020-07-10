@@ -64,47 +64,38 @@ const store = {
   score: 0
 };
 
+
 function startPage() {
   $(window).on('load', event => {
     $('main').html(`<div class="border" id="main-box">
     <h2>Welcome!</h2>
     <h3>Would you like to start the Movie Trivia Quiz?</h3>
     <hr>
-    <button type="button" class="item" id="start-button">YES</button>
+    <button type="button" class="item" id="submit-button">YES</button>
     </div>`);
   });
 }
 
-function startQuestions() {
-  console.log('registering listener');
-  
-  $('main').on('click', '#start-button', event => {
-    console.log('Start button clicked');
-    let html = renderHtml();
-    $('main').html(html);
-  });
-}
-
-
+ 
 function nextQuestion() {
-  console.log('registering listener');
-
-  
+   console.log('registering listener');
   $('main').on('click', '#submit-button', event => {
     event.preventDefault();
     console.log('Submit button clicked');
-    let userAnswer = answerCheck(getUserAnswer());
-    store.questionNumber += 1;
+    if(store.quizStarted){
+      let userAnswer = answerCheck(getUserAnswer());
+      store.questionNumber += 1;
+       }
     let html = renderHtml();
     $('main').html(html);
-    
+    store.quizStarted = true;
   });
 }
 
 function renderHtml() {
   let question = store.questions[store.questionNumber]['question'];
   let answers = store.questions[store.questionNumber]['answers'];
-  return `<div class="border" id="main-box">
+  return `<div class="border" id="main-box">          
   <h2>Question ${store.questionNumber + 1} of 5</h2>
   <h3>${question}</h3>
   <hr>
@@ -125,17 +116,19 @@ function renderHtml() {
 }
 
 
-// LEFT OFF //
+// LEFT OFF  //
 function answerCheck(userAnswer){
+  
   if (userAnswer===store.questions[store.questionNumber].correctAnswer){
     $('main').html(`<div class="border" id="main-box">
-    <h2>Correct!</h2>
-    <hr>
+    <h2>Correct!</h2><hr>
     <button type="button" class="item" id="start-button">Continue</button>
-    </div>`);
+    </div>`  
+    );
+    console.log('Correct!');
   } else{
-    //DISPLAY INCORRECT, RIGHT ANSWER IS store.questions[store.questionNumber].correctAnswer
-  }
+    console.log("Incorrect!");//DISPLAY INCORRECT, RIGHT ANSWER IS store.questions[store.questionNumber].correctAnswer
+  } 
 }
 
 function getUserAnswer(){
@@ -144,7 +137,10 @@ function getUserAnswer(){
   return userAnswer;
 }
 
-
+function scoreIncrease(){
+  store.score++;
+  console.log(store.score);
+}
 
 
 
@@ -155,9 +151,8 @@ function getUserAnswer(){
 
 function quiz() {
   startPage();
-  startQuestions();
-  nextQuestion();
-  
+ nextQuestion();
+ 
 }
 
 
