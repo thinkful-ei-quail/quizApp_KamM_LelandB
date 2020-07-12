@@ -59,6 +59,7 @@ const store = {
       correctAnswer: 'Milk'
     },
   ],
+  invalidAnswer: false,
   quizStarted: false,
   questionNumber: 0,
   score: 0
@@ -89,10 +90,12 @@ function nextQuestion() {
    console.log('registering listener');
   $('main').on('click', '#submit-button', event => {
     event.preventDefault();
+    console.log(store.userAnswer);
     console.log('Submit button clicked');
-    if(store.quizStarted){
+    if(store.quizStarted) {
       let userAnswer = answerCheck(getUserAnswer());
-      store.questionNumber += 1;
+      if(store.invalidAnswer==false)
+        store.questionNumber += 1;
     }
     
   });
@@ -132,13 +135,23 @@ function answerCheck(userAnswer){
     </div>`  
     );
     scoreIncrease();
+    store.invalidAnswer = false;
     console.log('Correct!');
-  } else{
+  }else if(userAnswer===undefined){
+    if(!store.invalidAnswer)
+    {let htmlString = $('#main-box').html();
+    htmlString += '<div class ="Error Message">Please select a valid answer</div>' 
+    $('#main-box').html(htmlString)}
+    store.invalidAnswer = true; 
+    console.log('not an answer');
+  }   
+  else{
     $('main').html(`<div class="border" id="main-box">
     <h2>Incorrect! Correct answer is ${store.questions[store.questionNumber].correctAnswer}</h2><hr>
     <button type="button" class="item" id="continue-button">Continue</button>
     </div>`  
     );
+    store.invalidAnswer = false;
     console.log("Incorrect!");
   } 
 }
